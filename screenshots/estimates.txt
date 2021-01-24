@@ -1,0 +1,40 @@
+1. Minimum RTO for a single AZ outage
+
+AZ Outage occurs
+Alert triggers in - 5 minutes since error occurs
+On-call staff is notified in - 1 min
+On-call staff begins to diagnose issue - 10 min
+DB is failed over to stand by instance - 10 mins. This doesn't require any administrative intervention as per user guide (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html)
+On-call staff makes sure everything is working fine by restarting applications if required - 10 min
+
+Total RTO - 25 min (10 mins to failover is included as it is an automated process)
+
+2. Minimum RTO for a single region outage
+
+Region Outage occurs
+Alert triggers in - 5 minutes since error occurs
+On-call staff is notified in - 1 min
+On-call staff begins to diagnose issue - 10 min
+Promote the read replica in another to read/write replica - 15 min
+Reconfigure and restart applications that write to db with the promoted db instance endpoint - 30 min
+
+Total RTO - 1 hour
+
+
+3. Minimum RPO for a single AZ outage
+
+Total RPO - 20 min. As per the AWS docs the failover time takes 60-120 secs but some large transactions can take some time.
+Keeping a higher limit of 10 mins to do the failover. Additional 10 mins to make sure necessary applications are restarted and everything works fine.
+
+4. Minimum RPO for a single region outage
+As RDS creates automated backups every 30 mins by default we will assume that we can restore to a version atleast 30 min old.
+
+Region Outage occurs
+Alert triggers in - 5 minutes since error occurs
+On-call staff is notified in - 1 min
+On-call staff begins to diagnose issue - 10 min
+Promote the read replica in another to read/write replica - 15 min
+Restore the promoted replica to point in time before primary region began to fail - 5 min
+Reconfigure and restart applications that write to db with the promoted db instance endpoint - 30 min
+
+Total RPO - 1 hour 30 min, considering that the backup will be atleast 30 min old.

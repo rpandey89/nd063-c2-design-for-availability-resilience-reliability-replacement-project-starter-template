@@ -1,0 +1,63 @@
+1. chmod 400 UdacityCloudDeveloper.pem
+2. ssh -i "UdacityCloudDeveloper.pem" ec2-user@ec2-13-56-254-97.us-west-1.compute.amazonaws.com
+3. sudo yum update
+4. sudo yum install mysql
+5. mysql -h primary-db.c6lvsce1ktth.us-west-1.rds.amazonaws.com -u admin -p
+6. show databases;
+   +--------------------+
+   | Database           |
+   +--------------------+
+   | information_schema |
+   | mysql              |
+   | performance_schema |
+   | sys                |
+   | udacity            |
+   +--------------------+
+   5 rows in set (0.00 sec)
+7. use udacity;
+8. CREATE TABLE actions (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, user VARCHAR(20) NOT NULL, action VARCHAR(20) NOT NULL);
+9. INSERT INTO actions(user, action) VALUES('adam', 'wake up');
+   Query OK, 1 row affected (0.01 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'eat breakfast');
+   Query OK, 1 row affected (0.02 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'work from home');
+   Query OK, 1 row affected (0.01 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'exercise');
+   Query OK, 1 row affected (0.02 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'lunch');
+   Query OK, 1 row affected (0.00 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'work from home');
+   Query OK, 1 row affected (0.02 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'eat dinner');
+   Query OK, 1 row affected (0.01 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('adam', 'sleep');
+   Query OK, 1 row affected (0.01 sec)
+
+   MySQL [udacity]> INSERT INTO actions(user, action) VALUES('rocky', 'train');
+   Query OK, 1 row affected (0.01 sec)
+10. select * from actions;
+    +----+-------+----------------+
+    | id | user  | action         |
+    +----+-------+----------------+
+    |  1 | adam  | wake up        |
+    |  2 | adam  | eat breakfast  |
+    |  3 | adam  | work from home |
+    |  4 | adam  | exercise       |
+    |  5 | adam  | lunch          |
+    |  6 | adam  | work from home |
+    |  7 | adam  | eat dinner     |
+    |  8 | adam  | sleep          |
+    |  9 | rocky | train          |
+    +----+-------+----------------+
+    9 rows in set (0.00 sec)
+11. MySQL [udacity]> exit
+12. [ec2-user@ip-10-1-11-9 ~]$ exit
+    logout
+    Connection to ec2-13-56-254-97.us-west-1.compute.amazonaws.com closed.

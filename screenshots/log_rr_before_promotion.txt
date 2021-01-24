@@ -1,0 +1,34 @@
+1. chmod 400 UdactiyCloudDeveloperOregon.pem
+2. ssh -i "UdactiyCloudDeveloperOregon.pem" ec2-user@ec2-54-70-87-232.us-west-2.compute.amazonaws.com
+3. sudo yum update
+4. sudo yum install mysql
+5.  mysql -h secondary-db.cewhoerbyx2s.us-west-2.rds.amazonaws.com -u admin -p
+6. MySQL [(none)]> show databases;
+   +--------------------+
+   | Database           |
+   +--------------------+
+   | information_schema |
+   | mysql              |
+   | performance_schema |
+   | sys                |
+   | udacity            |
+   +--------------------+
+   5 rows in set (0.00 sec)
+7. use udacity;
+8. MySQL [udacity]> select * from actions;
+   +----+-------+----------------+
+   | id | user  | action         |
+   +----+-------+----------------+
+   |  1 | adam  | wake up        |
+   |  2 | adam  | eat breakfast  |
+   |  3 | adam  | work from home |
+   |  4 | adam  | exercise       |
+   |  5 | adam  | lunch          |
+   |  6 | adam  | work from home |
+   |  7 | adam  | eat dinner     |
+   |  8 | adam  | sleep          |
+   |  9 | rocky | train          |
+   +----+-------+----------------+
+   9 rows in set (0.00 sec)
+9. MySQL [udacity]> INSERT INTO actions(user, action) VALUES('rocky', 'supplement');
+   ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
